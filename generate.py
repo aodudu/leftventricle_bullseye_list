@@ -4,6 +4,8 @@
 This example demonstrates how to create the 17 segment model for the left
 ventricle recommended by the American Heart Association (AHA).
 """
+##set working directory. must keep import csv file in the same 
+
 
 import numpy as np
 import matplotlib as mpl
@@ -42,7 +44,7 @@ def bullseye_plot(ax, data, vlim=None, segBold=[]):
         for tomographic imaging of the heart,” Circulation, vol. 105, no. 4,
         pp. 539–542, 2002.
     """
-
+	
     linewidth = 2
     data = np.array(data).ravel()
 
@@ -61,7 +63,7 @@ def bullseye_plot(ax, data, vlim=None, segBold=[]):
         theta_i = i*60*np.pi/180
         ax.plot([theta_i, theta_i], [r[1], 1], '-k', lw=linewidth)
 
-    # Create the bounds for the segmentss 13-16
+    # Create the bounds for the segments 13-16
     for i in range(4):
         theta_i = i*90*np.pi/180 - 45*np.pi/180
         ax.plot([theta_i, theta_i], [r[0], r[1]], '-k', lw=linewidth)
@@ -74,7 +76,7 @@ def bullseye_plot(ax, data, vlim=None, segBold=[]):
         theta0 = theta[i*128:i*128+128] + 60*np.pi/180
         theta0 = np.repeat(theta0[:, np.newaxis], 2, axis=1)
         z = np.ones((128, 2))*data[i]
-        ax.pcolormesh(theta0, r0, z, vmin=vlim[0], vmax=vlim[1], cmap=plt.cm.RdBu)
+        ax.pcolormesh(theta0, r0, z, vmin=vlim[0], vmax=vlim[1], cmap=plt.cm.Blues_r)
         if i+1 in segBold:
             ax.plot(theta0, r0, '-k', lw=linewidth+2)
             ax.plot(theta0[0], [r[2], r[3]], '-k', lw=linewidth+1)
@@ -88,7 +90,7 @@ def bullseye_plot(ax, data, vlim=None, segBold=[]):
         theta0 = theta[i*128:i*128+128] + 60*np.pi/180
         theta0 = np.repeat(theta0[:, np.newaxis], 2, axis=1)
         z = np.ones((128, 2))*data[i+6]
-        ax.pcolormesh(theta0, r0, z, vmin=vlim[0], vmax=vlim[1], cmap=plt.cm.RdBu)
+        ax.pcolormesh(theta0, r0, z, vmin=vlim[0], vmax=vlim[1], cmap=plt.cm.Blues_r)
         if i+7 in segBold:
             ax.plot(theta0, r0, '-k', lw=linewidth+2)
             ax.plot(theta0[0], [r[1], r[2]], '-k', lw=linewidth+1)
@@ -102,7 +104,7 @@ def bullseye_plot(ax, data, vlim=None, segBold=[]):
         theta0 = theta[i*192:i*192+192] + 45*np.pi/180
         theta0 = np.repeat(theta0[:, np.newaxis], 2, axis=1)
         z = np.ones((192, 2))*data[i+12]
-        ax.pcolormesh(theta0, r0, z, vmin=vlim[0], vmax=vlim[1], cmap=plt.cm.RdBu)
+        ax.pcolormesh(theta0, r0, z, vmin=vlim[0], vmax=vlim[1], cmap=plt.cm.Blues_r)
         if i+13 in segBold:
             ax.plot(theta0, r0, '-k', lw=linewidth+2)
             ax.plot(theta0[0], [r[0], r[1]], '-k', lw=linewidth+1)
@@ -114,7 +116,7 @@ def bullseye_plot(ax, data, vlim=None, segBold=[]):
         r0 = np.repeat(r0[:, np.newaxis], theta.size, axis=1).T
         theta0 = np.repeat(theta[:, np.newaxis], 2, axis=1)
         z = np.ones((theta.size, 2))*data[16]
-        ax.pcolormesh(theta0, r0, z, vmin=vlim[0], vmax=vlim[1], cmap=plt.cm.RdBu)
+        ax.pcolormesh(theta0, r0, z, vmin=vlim[0], vmax=vlim[1], cmap=plt.cm.Blues_r)
         if 17 in segBold:
             ax.plot(theta0, r0, '-k', lw=linewidth+2)
 
@@ -215,7 +217,7 @@ for x in range(len(arr_of_groups)) :
     chain[len(arr)].set_title("Average")
 
     #Add legend
-    cm = plt.cm.RdBu #plt.cm.jet
+    cm = plt.cm.Blues #plt.cm.jet
 
     #define the bins and normalize
     cNorm = mpl.colors.Normalize(vmin=vlim[0], vmax=vlim[1])
