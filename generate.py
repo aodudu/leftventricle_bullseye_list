@@ -1,17 +1,8 @@
 #!/usr/bin/env python
+# -*- coding: cp1252 -*-
 """
-This example takes the demonstration of how to create the 17 segment model for the left
-ventricle recommended by the American Heart Association (AHA) 
-found here  https://github.com/curiale/matplotlib/blob/master/examples/pylab_examples/leftventricle_bulleye.py.
-and expands it to allow a list of data rows, divided into groups, to be read in. Expects the following format 
-in CSV file:
- - First row ignored (header)
- - First column ignored (ID)
- - Second column used to define group (each group generates own matplotlib display)
- - Then next 17 columns represent a value in a range 1 - 12 representing a figure for that area of the left ventricle
- 
- Last graph in each group represents the mean of values for that group
- 
+This example demonstrates how to create the 17 segment model for the left
+ventricle recommended by the American Heart Association (AHA).
 """
 
 import numpy as np
@@ -194,9 +185,10 @@ for x in range(len(arr_of_groups)) :
 
     num_cols = int(math.sqrt(len(arr) + 1))
     
-    # We need to create an x by x grid of graphs. I'm using 6 columns, make
+    # We need to create an x by x grid of graphs. I'm using n columns,
+    # where n is calculated to be as square a grid as possible. To make
     # sure I have enough columns to fit everything in
-    # (ie num rows of data / 6, plus one more row if num rows of data / 6 has a remainder
+    # (ie num rows of data / n, plus one more row if num rows of data / n has a remainder
     overrun = 1 if (len(arr) + 1) % num_cols > 0 else 0
     
     fig, ax = plt.subplots(figsize=(12, 8), nrows=int((len(arr)+1)/num_cols) + overrun, ncols=num_cols,
@@ -214,7 +206,7 @@ for x in range(len(arr_of_groups)) :
         
         bullseye_plot(chain[y], data, vlim=vlim)
         chain[y].set_title('Patient ' + str(y+1))
-
+        
 
     # Add average
     data = arr_av(arr)
@@ -233,6 +225,5 @@ for x in range(len(arr_of_groups)) :
         
     cb = mpl.colorbar.ColorbarBase(chain[len(arr)], cmap=cm, norm=cNorm, ticks=ticks,
                                        orientation='horizontal')
-    
-
 plt.show()
+
